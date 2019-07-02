@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.base.GROUPGridsMapper">
+	<!--地图栅格参数信息返回对象-->
+<resultMap id="ResultMapGROUPGrids"  type="com.spdb.pojo.base.GROUPGridsPojo" >
+<result property="cityCode" column="CITY_CODE" javaType="String" jdbcType="VARCHAR"  /><result property="city" column="CITY" javaType="String" jdbcType="VARCHAR"  /><result property="gridId" column="GRID_ID" javaType="Integer" jdbcType="INTEGER"  /><result property="gridName" column="GRID_NAME" javaType="String" jdbcType="VARCHAR"  /><result property="gridType" column="GRID_TYPE" javaType="String" jdbcType="VARCHAR"  /><result property="leftDownX" column="LEFT_DOWN_X" javaType="Double" jdbcType="DOUBLE"  /><result property="leftDownY" column="LEFT_DOWN_Y" javaType="Double" jdbcType="DOUBLE"  /><result property="rightUpX" column="RIGHT_UP_X" javaType="Double" jdbcType="DOUBLE"  /><result property="rightUpY" column="RIGHT_UP_Y" javaType="Double" jdbcType="DOUBLE"  /><result property="sY" column="S_Y" javaType="Double" jdbcType="DOUBLE"  /><result property="flag" column="FLAG" javaType="String" jdbcType="VARCHAR"  /><result property="sX" column="S_X" javaType="Double" jdbcType="DOUBLE"  /><result property="nX" column="N_X" javaType="Integer" jdbcType="INTEGER"  /><result property="nY" column="N_Y" javaType="Integer" jdbcType="INTEGER"  /></resultMap>
+
+	<!--地图栅格参数信息插入语句-->
+	<insert id="insert" parameterType="com.spdb.pojo.base.GROUPGridsPojo"> 
+INSERT INTO group_grids (
+ CITY_CODE,CITY,GRID_ID,GRID_NAME,GRID_TYPE,LEFT_DOWN_X,LEFT_DOWN_Y,RIGHT_UP_X,RIGHT_UP_Y,S_Y,FLAG,S_X,N_X,N_Y
+)
+VALUES
+(#{cityCode,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{gridId,jdbcType=INTEGER},#{gridName,jdbcType=VARCHAR}
+,#{gridType,jdbcType=VARCHAR},#{leftDownX,jdbcType=DOUBLE},#{leftDownY,jdbcType=DOUBLE},#{rightUpX,jdbcType=DOUBLE},#{rightUpY,jdbcType=DOUBLE}
+,#{sY,jdbcType=DOUBLE},#{flag,jdbcType=VARCHAR},#{sX,jdbcType=DOUBLE},#{nX,jdbcType=INTEGER},#{nY,jdbcType=INTEGER}
+)
+</insert>
+
+	<!--地图栅格参数信息删除语句-->
+<delete id="delete" parameterType="com.spdb.pojo.base.GROUPGridsPojo">
+DELETE FROM group_grids 
+<where>
+<if test="cityCode != null and cityCode!='' ">CITY_CODE = #{cityCode}</if>
+<if test="city != null and city!='' "> AND CITY = #{city}</if>
+<if test="gridId != null and gridId!='' "> AND GRID_ID = #{gridId}</if>
+<if test="gridName != null and gridName!='' "> AND GRID_NAME = #{gridName}</if>
+<if test="gridType != null and gridType!='' "> AND GRID_TYPE = #{gridType}</if>
+<if test="leftDownX != null and leftDownX!='' "> AND LEFT_DOWN_X = #{leftDownX}</if>
+<if test="leftDownY != null and leftDownY!='' "> AND LEFT_DOWN_Y = #{leftDownY}</if>
+<if test="rightUpX != null and rightUpX!='' "> AND RIGHT_UP_X = #{rightUpX}</if>
+<if test="rightUpY != null and rightUpY!='' "> AND RIGHT_UP_Y = #{rightUpY}</if>
+<if test="sY != null and sY!='' "> AND S_Y = #{sY}</if>
+<if test="flag != null and flag!='' "> AND FLAG = #{flag}</if>
+<if test="sX != null and sX!='' "> AND S_X = #{sX}</if>
+<if test="nX != null and nX!='' "> AND N_X = #{nX}</if>
+<if test="nY != null and nY!='' "> AND N_Y = #{nY}</if>
+</where>
+
+</delete> 
+
+	<!--地图栅格参数信息更新语句-->
+	<update id="update" parameterType="com.spdb.pojo.base.GROUPGridsPojo"> 
+UPDATE group_grids 
+
+<set>
+<if test="cityCode != null and cityCode!='' ">CITY_CODE = #{cityCode}</if>
+<if test="city != null and city!='' ">,CITY = #{city}</if>
+<if test="gridId != null and gridId!='' ">,GRID_ID = #{gridId}</if>
+<if test="gridName != null and gridName!='' ">,GRID_NAME = #{gridName}</if>
+<if test="gridType != null and gridType!='' ">,GRID_TYPE = #{gridType}</if>
+<if test="leftDownX != null and leftDownX!='' ">,LEFT_DOWN_X = #{leftDownX}</if>
+<if test="leftDownY != null and leftDownY!='' ">,LEFT_DOWN_Y = #{leftDownY}</if>
+<if test="rightUpX != null and rightUpX!='' ">,RIGHT_UP_X = #{rightUpX}</if>
+<if test="rightUpY != null and rightUpY!='' ">,RIGHT_UP_Y = #{rightUpY}</if>
+<if test="sY != null and sY!='' ">,S_Y = #{sY}</if>
+<if test="flag != null and flag!='' ">,FLAG = #{flag}</if>
+<if test="sX != null and sX!='' ">,S_X = #{sX}</if>
+<if test="nX != null and nX!='' ">,N_X = #{nX}</if>
+<if test="nY != null and nY!='' ">,N_Y = #{nY}</if>
+</set>
+<where>
+<if test="cityCode != null and cityCode!='' ">CITY_CODE = #{cityCode}</if>
+<if test="city != null and city!='' "> AND CITY = #{city}</if>
+<if test="gridId != null and gridId!='' "> AND GRID_ID = #{gridId}</if>
+<if test="gridName != null and gridName!='' "> AND GRID_NAME = #{gridName}</if>
+<if test="gridType != null and gridType!='' "> AND GRID_TYPE = #{gridType}</if>
+<if test="leftDownX != null and leftDownX!='' "> AND LEFT_DOWN_X = #{leftDownX}</if>
+<if test="leftDownY != null and leftDownY!='' "> AND LEFT_DOWN_Y = #{leftDownY}</if>
+<if test="rightUpX != null and rightUpX!='' "> AND RIGHT_UP_X = #{rightUpX}</if>
+<if test="rightUpY != null and rightUpY!='' "> AND RIGHT_UP_Y = #{rightUpY}</if>
+<if test="sY != null and sY!='' "> AND S_Y = #{sY}</if>
+<if test="flag != null and flag!='' "> AND FLAG = #{flag}</if>
+<if test="sX != null and sX!='' "> AND S_X = #{sX}</if>
+<if test="nX != null and nX!='' "> AND N_X = #{nX}</if>
+<if test="nY != null and nY!='' "> AND N_Y = #{nY}</if>
+</where>
+	</update>
+
+	<!--地图栅格参数信息查询数据集语句(传参在form中)-->
+<select id="query" parameterType="com.spdb.pojo.base.GROUPGridsPojo" resultMap="ResultMapGROUPGrids">
+<![CDATA[
+ SELECT  CITY_CODE,CITY,GRID_ID,GRID_NAME,GRID_TYPE,LEFT_DOWN_X,LEFT_DOWN_Y,RIGHT_UP_X,RIGHT_UP_Y,S_Y
+,FLAG,S_X,N_X,N_Y FROM group_grids
+ ]]>
+<where>
+<if test="cityCode != null and cityCode!='' ">CITY_CODE = #{cityCode}</if>
+<if test="city != null and city!='' "> and CITY = #{city}</if>
+<if test="gridId != null and gridId!='' "> and GRID_ID = #{gridId}</if>
+<if test="gridName != null and gridName!='' "> and GRID_NAME = #{gridName}</if>
+<if test="gridType != null and gridType!='' "> and GRID_TYPE = #{gridType}</if>
+<if test="leftDownX != null and leftDownX!='' "> and LEFT_DOWN_X = #{leftDownX}</if>
+<if test="leftDownY != null and leftDownY!='' "> and LEFT_DOWN_Y = #{leftDownY}</if>
+<if test="rightUpX != null and rightUpX!='' "> and RIGHT_UP_X = #{rightUpX}</if>
+<if test="rightUpY != null and rightUpY!='' "> and RIGHT_UP_Y = #{rightUpY}</if>
+<if test="sY != null and sY!='' "> and S_Y = #{sY}</if>
+<if test="flag != null and flag!='' "> and FLAG = #{flag}</if>
+<if test="sX != null and sX!='' "> and S_X = #{sX}</if>
+<if test="nX != null and nX!='' "> and N_X = #{nX}</if>
+<if test="nY != null and nY!='' "> and N_Y = #{nY}</if>
+</where>
+</select>
+
+</mapper>

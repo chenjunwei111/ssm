@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.admin.TROLEUserMapper">
+	<!--用户权限返回对象 -->
+	<resultMap id="ResultMapTROLEUser" type="com.spdb.pojo.admin.TROLEUserPojo">
+		<result property="roleId" column="ROLE_ID" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="userCode" column="USER_CODE" javaType="String"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--用户权限插入语句 -->
+	<insert id="insert" parameterType="com.spdb.pojo.admin.TROLEUserPojo">
+		INSERT INTO trole_user (
+		ROLE_ID,USER_CODE)
+		VALUES
+		(#{roleId,jdbcType=VARCHAR},#{userCode,jdbcType=VARCHAR})
+	</insert>
+
+	<!--用户权限删除语句 -->
+	<delete id="delete" parameterType="com.spdb.pojo.admin.TROLEUserPojo">
+		DELETE FROM trole_user
+		<where>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="userCode != null and userCode!='' "> AND USER_CODE = #{userCode}</if>
+		</where>
+
+	</delete>
+
+	<!--用户权限更新语句 -->
+	<update id="update" parameterType="com.spdb.pojo.admin.TROLEUserPojo">
+		UPDATE trole_user
+
+		<set>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="userCode != null and userCode!='' ">,USER_CODE = #{userCode}</if>
+		</set>
+		<where>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="userCode != null and userCode!='' "> AND USER_CODE = #{userCode}</if>
+		</where>
+	</update>
+
+	<!--用户权限查询数据集语句(传参在form中) -->
+	<select id="query" parameterType="com.spdb.pojo.admin.TROLEUserPojo"
+		resultMap="ResultMapTROLEUser">
+<![CDATA[
+ SELECT  ROLE_ID,USER_CODE FROM trole_user
+ ]]>
+		<where>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="userCode != null and userCode!='' "> and USER_CODE = #{userCode}</if>
+		</where>
+	</select>
+	
+	
+		<!--批量插入语句 -->
+	<insert id="insetListUser" parameterType="java.util.List">
+		INSERT ALL
+		<foreach collection="list" item="item" index="index"
+			separator="">
+			INTO trole_user VALUES
+			(#{item.roleId,jdbcType=VARCHAR}, #{item.userCode,jdbcType=VARCHAR})
+		</foreach>
+		select 1 from dual
+	</insert>
+
+	<!--批量删除语句 -->
+	<delete id="deleteListUser">
+		delete from trole_user
+		where ROLE_ID = #{roleId,jdbcType=VARCHAR} AND USER_CODE IN
+		<foreach collection="userNames" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+
+</mapper>

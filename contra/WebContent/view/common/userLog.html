@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>功能记录</title>
+    <link rel="stylesheet" href="../../css/common/bootstrap.min.css">
+    <link rel="stylesheet" href="../../layui/css/layui.css?ver=1" media="all"/>
+    <link rel="stylesheet" href="../../css/common/style.css">
+    <link rel="stylesheet" href="../../css/common/sumoselect.css"/>
+    <style>
+        .glow-content .nav-tabs > li {
+            margin: 20px 5px 10px 0;
+        }
+        #pci-optimize .glow-content{
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<!--查询操作栏-->
+<!--<div class="bar">-->
+    <!--<form class="form-inline action-bar">-->
+        <!--<div class="form-group" style="margin-right: 0px;margin-left: 10px;">-->
+            <!--<label>开发者</label>-->
+            <!--<select name="" class="form-control" id="selectPeople">-->
+                <!--<option value="所有人">所有人</option>-->
+                <!--<option value="杨叶卫">杨叶卫</option>-->
+                <!--<option value="廖朝军">廖朝军</option>-->
+                <!--<option value="陈君威">陈君威</option>-->
+                <!--<option value="范富沅">范富沅</option>-->
+                <!--<option value="欧阳晓雯">欧阳晓雯</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!--<button type="button" class="btn btn-borderless search" id="query">-->
+            <!--<img src="../../images/img/search.png">-->
+        <!--</button>-->
+    <!--</form>-->
+<!--</div>-->
+<!--查询操作栏 end-->
+
+<div class="col-md-12">
+    <div class="glow-box1 clearfix">
+        <img class="icon-glow-left-top" src="../../images/img/icon-glow-left-top.png">
+        <img class="icon-glow-right-top" src="../../images/img/icon-glow-right-top.png">
+        <img class="icon-glow-left-bottom" src="../../images/img/icon-glow-left-bottom.png">
+        <img class="icon-glow-right-bottom" src="../../images/img/icon-glow-right-bottom.png">
+        <div class="glow-title">
+            <h4>模块使用统计</h4>
+        </div>
+        <div class="glow-content">
+            <!--这里放内容-->
+            <div id="dtMain" lay-filter="dtMain" lay-data="{id: 'dtMain'}"></div>
+
+        </div>
+    </div>
+
+    <div class="glow-box1 clearfix">
+        <img class="icon-glow-left-top" src="../../images/img/icon-glow-left-top.png">
+        <img class="icon-glow-right-top" src="../../images/img/icon-glow-right-top.png">
+        <img class="icon-glow-left-bottom" src="../../images/img/icon-glow-left-bottom.png">
+        <img class="icon-glow-right-bottom" src="../../images/img/icon-glow-right-bottom.png">
+        <div class="glow-title">
+            <h4>人员使用统计</h4>
+        </div>
+        <div class="glow-content">
+            <!--这里放内容-->
+            <div id="dtMain2" lay-filter="dtMain2" lay-data="{id: 'dtMain2'}"></div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script type="text/javascript" src="../../js/common/jquery-3.1.1.js"></script>
+<script src="../../js/common/bootstrap.js"></script>
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript" src="../../js/common/common.js"></script>
+
+
+<script type="text/javascript">
+
+
+    <!--初始化-->
+    $(function () {
+        getData();
+        getDataPeoPle();
+    });
+
+
+    //点击搜索
+    $("#query").click(function () {
+//        var selectPeople=$("#selectPeople option:selected").val();
+        getData();
+        getDataPeoPle();
+    })
+
+//    获取菜单使用人数
+    function getData() {
+        layui.use('table', function() {
+            var  w= $("#dtMain").width();  //求出表格宽度
+            var table = layui.table;
+            table.render({
+                elem: '#dtMain',//html页面绑定的DIV
+                url: '/contra/base/CommonController/getFunUseData?&',//传POJO后面一定要接（？）号
+                method: 'post',
+//              height: 570, //设定高度，不写默认100%
+                page: true, //是否显示分页 （true/false）
+                sortType: "remote", //默认: "local"或空,排序
+                limits: [10, 100, 1000],//可以选择多少数量的数据显示（不分页则无效）
+                limit: 10, //每页默认30的数量
+                cols: [  //表格表头生成，需要JAVA返回的变量名，以及需要呈现的中文名
+                    [ //可以指定宽度,
+                        {field: 'FUNCTION_PEOPLE', title: '开发者', width: w/6+20,},
+                        {field: 'FUNCTION_PARENT', title: '一级菜单', width:  w/6-20,},
+                        {field: 'FUNCTION_NAME', title: '子级菜单', width:  w/6-20,},
+                        {field: 'USE_NUM', title: '总访问次数', width:  w/6-20 ,},
+                        {field: 'MONTH_COUNT', title: '当月访问次数', width:  w/6-20 ,},
+                        {field: 'LAST_DATE', title: '最后访问时间', width:  w/6-20 ,},
+//                      {field: 'detail', title: '明细', width:  w/4-60 ,},
+                    ]
+                ],
+                done: function (res, curr, count) {
+
+                }
+            });
+        });
+    }
+
+//    使用人统计
+    function getDataPeoPle() {
+        layui.use('table', function() {
+            var  w= $("#dtMain2").width();  //求出表格宽度
+            var table = layui.table;
+            table.render({
+                elem: '#dtMain2',//html页面绑定的DIV
+                url: '/contra/base/CommonController/getFunPeopleData?&',//传POJO后面一定要接（？）号
+                method: 'post',
+//              height: 570, //设定高度，不写默认100%
+                page: true, //是否显示分页 （true/false）
+                sortType: "remote", //默认: "local"或空,排序
+                limits: [10, 100, 1000],//可以选择多少数量的数据显示（不分页则无效）
+                limit: 10, //每页默认30的数量
+                cols: [  //表格表头生成，需要JAVA返回的变量名，以及需要呈现的中文名
+                    [ //可以指定宽度,
+                        // {field: 'FUNCTION_PEOPLE', title: '开发者', width: w/6+20,},
+                        // {field: 'FUNCTION_PARENT', title: '父级菜单', width:  w/6-20,},
+                        {field: 'USER_NAME', title: '使用者', width:  w/6-20,},
+                        {field: 'USE_NUM', title: '总访问次数', width:  w/6-20 ,},
+                        {field: 'MONTH_COUNT', title: '当月访问次数', width:  w/6-20 ,},
+                        {field: 'LAST_DATE', title: '最后访问时间', width:  w/6-20 ,},
+//                      {field: 'detail', title: '明细', width:  w/4-60 ,},
+                    ]
+                ],
+                done: function (res, curr, count) {
+
+                }
+            });
+        });
+    }
+
+
+
+    //初始化时间控件
+    layui.use('laydate', function() {
+        var laydate=layui.laydate
+        laydate.render({
+            elem: '#selDate', //指定元素
+            range: true,
+        });
+    });
+
+</script>
+
+</html>

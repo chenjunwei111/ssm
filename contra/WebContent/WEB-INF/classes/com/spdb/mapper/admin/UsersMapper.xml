@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.admin.UsersMapper">
+	<!--用户权限返回对象 -->
+	<resultMap id="ResultMapUsers" type="com.spdb.pojo.admin.UsersPojo">
+		<result property="userCode" column="USER_CODE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="userName" column="USER_NAME" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="password" column="PASSWORD" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="phone" column="PHONE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="deptCode" column="DEPT_CODE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="deptName" column="DEPT_NAME" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="isvalid" column="ISVALID" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="islogin" column="ISLOGIN" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="lastlogin" column="LASTLOGIN" javaType="java.sql.Timestamp"
+			jdbcType="TIMESTAMP" />
+		<result property="email" column="EMAIL" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="organizations" column="ORGANIZATIONS"
+			javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--用户权限插入语句 -->
+	<insert id="insert" parameterType="com.spdb.pojo.admin.UsersPojo">
+		INSERT INTO USERS (
+		USER_CODE,USER_NAME,PASSWORD,PHONE,DEPT_CODE,DEPT_NAME,ISVALID,ISLOGIN,LASTLOGIN,EMAIL,ORGANIZATIONS)
+		VALUES
+		(#{userCode,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR}
+		,#{deptCode,jdbcType=VARCHAR},#{deptName,jdbcType=VARCHAR},#{isvalid,jdbcType=INTEGER},#{islogin,jdbcType=INTEGER},#{lastlogin,jdbcType=TIMESTAMP}
+		,#{email,jdbcType=VARCHAR},#{organizations,jdbcType=VARCHAR})
+	</insert>
+
+	<!--用户权限删除语句 -->
+	<delete id="delete" parameterType="com.spdb.pojo.admin.UsersPojo">
+		DELETE FROM USERS
+		<where>
+			<if test="userCode != null and userCode!='' ">USER_CODE = #{userCode}</if>
+			<if test="userName != null and userName!='' "> AND USER_NAME = #{userName}</if>
+			<if test="password != null and password!='' "> AND PASSWORD = #{password}</if>
+			<if test="phone != null and phone!='' "> AND PHONE = #{phone}</if>
+			<if test="deptCode != null and deptCode!='' "> AND DEPT_CODE = #{deptCode}</if>
+			<if test="deptName != null and deptName!='' "> AND DEPT_NAME = #{deptName}</if>
+			<if test="isvalid != null and isvalid!='' "> AND ISVALID = #{isvalid}</if>
+			<if test="islogin != null and islogin!='' "> AND ISLOGIN = #{islogin}</if>
+			<if test="lastlogin != null and lastlogin!='' "> AND LASTLOGIN = #{lastlogin,jdbcType=TIMESTAMP}</if>
+			<if test="email != null and email!='' "> AND EMAIL = #{email}</if>
+			<if test="organizations != null and organizations!='' "> AND ORGANIZATIONS = #{organizations}</if>
+		</where>
+
+	</delete>
+
+	<!--用户权限更新语句 -->
+	<update id="update" parameterType="com.spdb.pojo.admin.UsersPojo">
+		UPDATE USERS
+
+		<trim prefix="set" suffixOverrides=",">
+			<!--<if test="userCode != null and userCode!='' ">USER_CODE = #{userCode},</if>
+			<if test="userName != null and userName!='' ">USER_NAME = #{userName},</if> -->
+			<if test="password != null and password!='' ">PASSWORD = #{password},</if>
+			<if test="phone != null  ">PHONE = #{phone},</if>
+			<if test="deptCode != null and deptCode!='' ">DEPT_CODE = #{deptCode},</if>
+			<if test="deptName != null and deptName!='' ">DEPT_NAME = #{deptName},</if>
+			<if test="isvalid != null  ">ISVALID = #{isvalid},</if>
+			<if test="islogin != null ">ISLOGIN = #{islogin},</if>
+			<if test="lastlogin != null  ">LASTLOGIN = #{lastlogin,jdbcType=TIMESTAMP},</if>
+			<if test="email != null  ">EMAIL = #{email},</if>
+			<if test="organizations != null  ">ORGANIZATIONS = #{organizations},</if>
+		</trim>
+		<where>
+			<if test="userCode != null and userCode!='' ">USER_CODE = #{userCode}</if>
+		 <!-- 	<if test="userName != null and userName!='' "> AND USER_NAME = #{userName}</if>
+			<if test="password != null and password!='' "> AND PASSWORD = #{password}</if>
+			<if test="phone != null and phone!='' "> AND PHONE = #{phone}</if>
+			<if test="deptCode != null and deptCode!='' "> AND DEPT_CODE = #{deptCode}</if>
+			<if test="deptName != null and deptName!='' "> AND DEPT_NAME = #{deptName}</if>
+			<if test="isvalid != null and isvalid!='' "> AND ISVALID = #{isvalid}</if>
+			<if test="islogin != null and islogin!='' "> AND ISLOGIN = #{islogin}</if>
+			<if test="lastlogin != null and lastlogin!='' "> AND LASTLOGIN = #{lastlogin}</if>
+			<if test="email != null and email!='' "> AND EMAIL = #{email}</if>
+			<if test="organizations != null and organizations!='' "> AND ORGANIZATIONS = #{organizations}</if>-->
+		</where>
+	</update>
+
+	<!--用户权限查询数据集语句(传参在form中) -->
+	<select id="query" parameterType="com.spdb.pojo.admin.UsersPojo"
+		resultMap="ResultMapUsers">
+<![CDATA[
+ SELECT  USER_CODE,USER_NAME,PASSWORD,PHONE,DEPT_CODE,DEPT_NAME,ISVALID,ISLOGIN,LASTLOGIN,EMAIL
+,ORGANIZATIONS FROM USERS
+ ]]>
+		<where>
+			<if test="userCode != null and userCode!='' ">USER_CODE = #{userCode}</if>
+			<if test="userName != null and userName!='' "> and USER_NAME = #{userName}</if>
+			<if test="password != null and password!='' "> and PASSWORD = #{password}</if>
+			<if test="phone != null and phone!='' "> and PHONE = #{phone}</if>
+			<if test="deptCode != null and deptCode!='' "> and DEPT_CODE = #{deptCode}</if>
+			<if test="deptName != null and deptName!='' "> and DEPT_NAME = #{deptName}</if>
+			<if test="isvalid != null and isvalid!='' "> and ISVALID = #{isvalid}</if>
+			<if test="islogin != null and islogin!='' "> and ISLOGIN = #{islogin}</if>
+			<if test="lastlogin != null and lastlogin!='' "> and LASTLOGIN = #{lastlogin,jdbcType=TIMESTAMP}</if>
+			<if test="email != null and email!='' "> and EMAIL = #{email}</if>
+			<if test="organizations != null and organizations!='' "> and ORGANIZATIONS = #{organizations}</if>
+		</where>
+	</select>
+
+</mapper>

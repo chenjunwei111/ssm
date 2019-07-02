@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.base.DepartmentMapper">
+	<!--部门信息返回对象 -->
+	<resultMap id="ResultMapdepartment" type="com.spdb.pojo.base.DepartmentPojo">
+		<result property="deptName" column="DEPT_NAME" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="parentDeptCode" column="PARENT_DEPT_CODE"
+			javaType="String" jdbcType="VARCHAR" />
+		<result property="description" column="DESCRIPTION" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="isvalid" column="ISVALID" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="deptCode" column="DEPT_CODE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="areaCode" column="AREA_CODE" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="longitude" column="LONGITUDE" javaType="Double"
+			jdbcType="DOUBLE" />
+		<result property="latitude" column="LATITUDE" javaType="Double"
+			jdbcType="DOUBLE" />
+		<result property="sequence" column="SEQUENCE" javaType="Integer"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<!--部门信息插入语句 -->
+	<insert id="insert" parameterType="com.spdb.pojo.base.DepartmentPojo">
+		INSERT INTO DEPARTMENT (
+		DEPT_NAME,PARENT_DEPT_CODE,DESCRIPTION,ISVALID,DEPT_CODE,AREA_CODE,LONGITUDE,LATITUDE,SEQUENCE)
+		VALUES
+		(#{deptName,jdbcType=VARCHAR},#{parentDeptCode,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{isvalid,jdbcType=INTEGER}
+		,#{deptCode,jdbcType=VARCHAR},#{areaCode,jdbcType=INTEGER},#{longitude,jdbcType=DOUBLE},#{latitude,jdbcType=DOUBLE},#{sequence,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<!--部门信息删除语句 -->
+	<delete id="delete" parameterType="com.spdb.pojo.base.DepartmentPojo">
+		DELETE FROM DEPARTMENT
+		<where>
+			<if test="deptName != null and deptName!='' ">DEPT_NAME = #{deptName}</if>
+			<if test="parentDeptCode != null and parentDeptCode!='' "> AND PARENT_DEPT_CODE = #{parentDeptCode}</if>
+			<if test="description != null and description!='' "> AND DESCRIPTION = #{description}</if>
+			<if test="isvalid != null and isvalid!='' "> AND ISVALID = #{isvalid}</if>
+			<if test="deptCode != null and deptCode!='' "> AND DEPT_CODE = #{deptCode}</if>
+			<if test="areaCode != null and areaCode!='' "> AND AREA_CODE = #{areaCode}</if>
+			<if test="longitude != null and longitude!='' "> AND LONGITUDE = #{longitude}</if>
+			<if test="latitude != null and latitude!='' "> AND LATITUDE = #{latitude}</if>
+			<if test="sequence != null and sequence!='' "> AND SEQUENCE = #{sequence}</if>
+		</where>
+
+	</delete>
+
+	<!--部门信息更新语句 -->
+	<update id="update" parameterType="com.spdb.pojo.base.DepartmentPojo">
+		UPDATE DEPARTMENT
+
+			<trim prefix="set" suffixOverrides=",">
+			<if test="parentDeptCode != null and parentDeptCode!='' ">PARENT_DEPT_CODE = #{parentDeptCode},</if>
+			<if test="description != null  ">DESCRIPTION = #{description},</if>
+			<if test="isvalid != null ">ISVALID = #{isvalid},</if>
+			<!--<if test="areaCode != null and areaCode!='' ">AREA_CODE = #{areaCode},</if>-->
+			<if test="longitude != null and longitude!='' ">LONGITUDE = #{longitude},</if>
+			<if test="latitude != null and latitude!='' ">LATITUDE = #{latitude},</if>
+			<if test="sequence != null and sequence!='' ">SEQUENCE = #{sequence},</if>
+		</trim>
+		<where>
+			<!--<if test="deptName != null and deptName!='' ">DEPT_NAME = #{deptName}</if>
+			  <if test="parentDeptCode != null and parentDeptCode!='' "> AND PARENT_DEPT_CODE = #{parentDeptCode}</if>
+			<if test="description != null and description!='' "> AND DESCRIPTION = #{description}</if>
+			<if test="isvalid != null and isvalid!='' "> AND ISVALID = #{isvalid}</if>
+			<if test="deptCode != null and deptCode!='' "> AND DEPT_CODE = #{deptCode}</if>-->
+			<if test="areaCode != null and areaCode!='' ">  AREA_CODE = #{areaCode}</if>
+			<!--  <if test="longitude != null and longitude!='' "> AND LONGITUDE = #{longitude}</if>
+			<if test="latitude != null and latitude!='' "> AND LATITUDE = #{latitude}</if>
+			<if test="sequence != null and sequence!='' "> AND SEQUENCE = #{sequence}</if>-->
+		</where>
+	</update>
+
+	<!--部门信息查询数据集语句(传参在form中) -->
+	<select id="query" parameterType="com.spdb.pojo.base.DepartmentPojo"
+		resultMap="ResultMapdepartment">
+<![CDATA[
+ SELECT  DEPT_NAME,PARENT_DEPT_CODE,DESCRIPTION,ISVALID,DEPT_CODE,AREA_CODE,LONGITUDE,LATITUDE,SEQUENCE FROM DEPARTMENT
+ ]]>
+		<where>
+			<if test="deptName != null and deptName!='' ">DEPT_NAME = #{deptName}</if>
+			<if test="parentDeptCode != null and parentDeptCode!='' "> and PARENT_DEPT_CODE = #{parentDeptCode}</if>
+			<if test="description != null and description!='' "> and DESCRIPTION = #{description}</if>
+			<if test="isvalid != null and isvalid!='' "> and ISVALID = #{isvalid}</if>
+			<if test="deptCode != null and deptCode!='' "> and DEPT_CODE = #{deptCode}</if>
+			<if test="areaCode != null and areaCode!='' "> and AREA_CODE = #{areaCode}</if>
+			<if test="longitude != null and longitude!='' "> and LONGITUDE = #{longitude}</if>
+			<if test="latitude != null and latitude!='' "> and LATITUDE = #{latitude}</if>
+			<if test="sequence != null and sequence!='' "> and SEQUENCE = #{sequence}</if>
+		</where>
+	</select>
+
+</mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.admin.TROLETfunctionMapper">
+	<!--用户权限返回对象 -->
+	<resultMap id="ResultMapTROLETfunction" type="com.spdb.pojo.admin.TROLETfunctionPojo">
+		<result property="roleId" column="ROLE_ID" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="functionCode" column="FUNCTION_CODE"
+			javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--用户权限插入语句 -->
+	<insert id="insert" parameterType="com.spdb.pojo.admin.TROLETfunctionPojo">
+		INSERT INTO TROLE_TFUNCTION (
+		ROLE_ID,FUNCTION_CODE)
+		VALUES
+		(#{roleId,jdbcType=VARCHAR},#{functionCode,jdbcType=VARCHAR})
+	</insert>
+
+	<!--批量插入语句 -->
+	<insert id="insetListFun" parameterType="java.util.List">
+		INSERT ALL
+		<foreach collection="list" item="item" index="index"
+			separator="">
+			INTO TROLE_TFUNCTION VALUES
+			(#{item.roleId,jdbcType=VARCHAR}, #{item.functionCode,jdbcType=VARCHAR})
+		</foreach>
+		select 1 from dual
+	</insert>
+
+	<!--批量删除语句 -->
+	<delete id="deleteListFun">
+		delete from TROLE_TFUNCTION
+		where ROLE_ID = #{roleId,jdbcType=VARCHAR} AND FUNCTION_CODE IN
+		<foreach collection="funNames" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+
+
+
+	<!--用户权限删除语句 -->
+	<delete id="delete" parameterType="com.spdb.pojo.admin.TROLETfunctionPojo">
+		DELETE FROM TROLE_TFUNCTION
+		<where>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="functionCode != null and functionCode!='' "> AND FUNCTION_CODE = #{functionCode}</if>
+		</where>
+
+	</delete>
+
+	<!--用户权限更新语句 -->
+	<update id="update" parameterType="com.spdb.pojo.admin.TROLETfunctionPojo">
+		UPDATE TROLE_TFUNCTION
+
+		<set>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="functionCode != null and functionCode!='' ">,FUNCTION_CODE = #{functionCode}</if>
+		</set>
+		<where>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="functionCode != null and functionCode!='' "> AND FUNCTION_CODE = #{functionCode}</if>
+		</where>
+	</update>
+
+	<!--用户权限查询数据集语句(传参在form中) -->
+	<select id="query" parameterType="com.spdb.pojo.admin.TROLETfunctionPojo"
+		resultMap="ResultMapTROLETfunction">
+<![CDATA[
+ SELECT  ROLE_ID,FUNCTION_CODE FROM TROLE_TFUNCTION
+ ]]>
+		<where>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="functionCode != null and functionCode!='' "> and FUNCTION_CODE = #{functionCode}</if>
+		</where>
+	</select>
+
+</mapper>

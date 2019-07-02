@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.admin.TROLEDepartmentMapper">
+	<!--角色部门返回对象 -->
+	<resultMap id="ResultMapTROLEDepartment" type="com.spdb.pojo.admin.TROLEDepartmentPojo">
+		<result property="roleId" column="ROLE_ID" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="deptCode" column="DEPT_CODE" javaType="String"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--角色部门插入语句 -->
+	<insert id="insert" parameterType="com.spdb.pojo.admin.TROLEDepartmentPojo">
+		INSERT INTO TROLE_DEPARTMENT (
+		ROLE_ID,DEPT_CODE)
+		VALUES
+		(#{roleId,jdbcType=VARCHAR},#{deptCode,jdbcType=VARCHAR})
+	</insert>
+
+	<!--角色部门删除语句 -->
+	<delete id="delete" parameterType="com.spdb.pojo.admin.TROLEDepartmentPojo">
+		DELETE FROM TROLE_DEPARTMENT
+		<where>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="deptCode != null and deptCode!='' "> AND DEPT_CODE = #{deptCode}</if>
+		</where>
+
+	</delete>
+
+	<!--角色部门更新语句 -->
+	<update id="update" parameterType="com.spdb.pojo.admin.TROLEDepartmentPojo">
+		UPDATE TROLE_DEPARTMENT
+
+		<set>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="deptCode != null and deptCode!='' ">,DEPT_CODE = #{deptCode}</if>
+		</set>
+		<where>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="deptCode != null and deptCode!='' "> AND DEPT_CODE = #{deptCode}</if>
+		</where>
+	</update>
+
+	<!--角色部门查询数据集语句(传参在form中) -->
+	<select id="query" parameterType="com.spdb.pojo.admin.TROLEDepartmentPojo"
+		resultMap="ResultMapTROLEDepartment">
+<![CDATA[
+ SELECT  ROLE_ID,DEPT_CODE FROM TROLE_DEPARTMENT
+ ]]>
+		<where>
+			<if test="roleId != null and roleId!='' ">ROLE_ID = #{roleId}</if>
+			<if test="deptCode != null and deptCode!='' "> and DEPT_CODE = #{deptCode}</if>
+		</where>
+	</select>
+
+
+
+<!--批量插入语句 -->
+	<insert id="insetListDept" parameterType="java.util.List">
+		INSERT ALL
+		<foreach collection="list" item="item" index="index"
+			separator="">
+			INTO trole_department VALUES
+			(#{item.roleId,jdbcType=VARCHAR}, #{item.deptCode,jdbcType=VARCHAR})
+		</foreach>
+		select 1 from dual
+	</insert>
+
+	<!--批量删除语句 -->
+	<delete id="deleteListDept">
+		delete from trole_department
+		where ROLE_ID = #{roleId,jdbcType=VARCHAR} AND DEPT_CODE IN
+		<foreach collection="deptNames" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+
+</mapper>

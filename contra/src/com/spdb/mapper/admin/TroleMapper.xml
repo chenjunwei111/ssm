@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.admin.TroleMapper">
+	<!--用户权限返回对象 -->
+	<resultMap id="ResultMapTrole" type="com.spdb.pojo.admin.TrolePojo">
+		<result property="roleName" column="ROLE_NAME" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="description" column="DESCRIPTION" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="isvalid" column="ISVALID" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="roleId" column="ROLE_ID" javaType="String"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--用户权限插入语句 -->
+	<insert id="insert" parameterType="com.spdb.pojo.admin.TrolePojo">
+		INSERT INTO trole (
+		ROLE_NAME,DESCRIPTION,ISVALID,ROLE_ID)
+		VALUES
+		(#{roleName,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{isvalid,jdbcType=INTEGER},#{roleId,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!--用户权限删除语句 -->
+	<delete id="delete" parameterType="com.spdb.pojo.admin.TrolePojo">
+		DELETE FROM trole
+		<where>
+			<if test="roleName != null and roleName!='' ">ROLE_NAME = #{roleName}</if>
+			<if test="description != null and description!='' "> AND DESCRIPTION = #{description}</if>
+			<if test="isvalid != null and isvalid!='' "> AND ISVALID = #{isvalid}</if>
+			<if test="roleId != null and roleId!='' "> AND ROLE_ID = #{roleId}</if>
+		</where>
+
+	</delete>
+
+	<!--用户权限更新语句 -->
+	<update id="update" parameterType="com.spdb.pojo.admin.TrolePojo">
+		UPDATE trole
+
+		<set>
+			<if test="roleName != null and roleName!='' ">ROLE_NAME = #{roleName}</if>
+			<if test="description != null and description!='' ">,DESCRIPTION = #{description}</if>
+			<if test="isvalid != null and isvalid!='' ">,ISVALID = #{isvalid}</if>
+			<if test="roleId != null and roleId!='' ">,ROLE_ID = #{roleId}</if>
+		</set>
+		<where>
+			<if test="roleName != null and roleName!='' ">ROLE_NAME = #{roleName}</if>
+			<if test="description != null and description!='' "> AND DESCRIPTION = #{description}</if>
+			<if test="isvalid != null and isvalid!='' "> AND ISVALID = #{isvalid}</if>
+			<if test="roleId != null and roleId!='' "> AND ROLE_ID = #{roleId}</if>
+		</where>
+	</update>
+
+	<!--用户权限查询数据集语句(传参在form中) -->
+	<select id="query" parameterType="com.spdb.pojo.admin.TrolePojo"
+		resultMap="ResultMapTrole">
+<![CDATA[
+ SELECT  ROLE_NAME,DESCRIPTION,ISVALID,ROLE_ID FROM trole
+ ]]>
+		<where>
+			<if test="roleName != null and roleName!='' ">ROLE_NAME = #{roleName}</if>
+			<if test="description != null and description!='' "> and DESCRIPTION = #{description}</if>
+			<if test="isvalid != null and isvalid!='' "> and ISVALID = #{isvalid}</if>
+			<if test="roleId != null and roleId!='' "> and ROLE_ID = #{roleId}</if>
+		</where>
+	</select>
+
+
+	<!--工单投诉更新语句 -->
+	<update id="updateRole" parameterType="com.spdb.pojo.admin.TrolePojo">
+	    UPDATE trole
+		<trim prefix="set" suffixOverrides=",">
+		<!--  <if test="roleName != null and roleName!='' ">ROLE_NAME = #{roleName},</if> -->
+			<if test="description != null  ">DESCRIPTION = #{description},</if>
+			<if test="isvalid != null ">ISVALID = #{isvalid}</if>
+		</trim>
+		<where>
+			<if test="roleId != null and roleId!='' ">  ROLE_ID = #{roleId}</if>
+		</where>
+	</update>
+
+
+</mapper>

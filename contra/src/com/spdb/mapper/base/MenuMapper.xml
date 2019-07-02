@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.base.MenuMapper">
+	<!--部门信息返回对象 -->
+	<resultMap id="ResultMapMenu" type="com.spdb.pojo.base.Menu">
+		<result property="functionCode" column="FUNCTION_CODE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="title" column="FUNCTION_NAME"
+			javaType="String" jdbcType="VARCHAR" />
+		<result property="functionParentCode" column="FUNCTION_PARENT_CODE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="icon" column="FUNCTION_ICON" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="href" column="FUNCTION_HREF" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="description" column="DESCRIPTION" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="isValid" column="ISVALID" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="sequence" column="SEQUENCE" javaType="Integer"
+			jdbcType="INTEGER" />
+
+	</resultMap>
+
+	<!--信息插入语句 
+	<insert id="insert" parameterType="com.spdb.pojo.base.DepartmentPojo">
+	
+	</insert>-->
+
+	<!--信息查询数据集语句(传参在form中) -->
+	<select id="queryMenuList" parameterType="com.spdb.pojo.base.Menu"
+		resultMap="ResultMapMenu">
+<![CDATA[
+ SELECT * FROM CFUNCTION ORDER BY FUNCTION_CODE
+ ]]>
+	</select>
+	
+	
+	<select id="queryMenuListCode" resultMap="ResultMapMenu">
+        <![CDATA[
+        select * from CFUNCTION where FUNCTION_CODE in(
+        select t1.FUNCTION_CODE from trole_tfunction t1, trole t2 where  t1.role_id=t2.role_id
+        and t2.ISVALID!=0   and   t1.role_id in (
+        select role_id from trole_user where user_code=#{userCode,jdbcType=VARCHAR}
+         ))ORDER BY FUNCTION_CODE
+         ]]>
+	</select>
+	
+	
+
+   <!--菜单插入语句 -->
+	<insert id="insert" parameterType="com.spdb.pojo.base.Menu">
+		INSERT INTO Cfunction (
+		FUNCTION_CODE, FUNCTION_NAME, FUNCTION_PARENT_CODE, FUNCTION_ICON, FUNCTION_HREF, DESCRIPTION, ISVALID, SEQUENCE)
+		VALUES
+		(#{functionCode,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{functionParentCode,jdbcType=VARCHAR},#{icon,jdbcType=VARCHAR}
+		,#{href,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{isvalid,jdbcType=INTEGER},#{sequence,jdbcType=INTEGER})
+	</insert>
+
+
+	<!--用户权限更新语句 -->
+	<update id="update" parameterType="com.spdb.pojo.base.Menu">
+		UPDATE Cfunction
+		<trim prefix="set" suffixOverrides=",">
+			<if test="title != null and title!='' ">FUNCTION_NAME = #{title},</if>
+			<if test="functionParentCode != null and functionParentCode!='' ">FUNCTION_PARENT_CODE = #{functionParentCode},</if>
+			<if test="icon != null and icon!='' ">FUNCTION_ICON = #{icon},</if>
+			<if test="href != null and href!='' ">FUNCTION_HREF = #{href},</if>
+			<if test="description != null and description!='' ">DESCRIPTION = #{description},</if>
+			<if test="isvalid != null  ">ISVALID = #{isvalid},</if>
+			<if test="sequence != null and sequence!='' ">SEQUENCE = #{sequence},</if>
+		</trim>
+		<where>
+			<if test="functionCode != null and functionCode!='' ">FUNCTION_CODE = #{functionCode}</if>
+		</where>
+	</update>
+</mapper>

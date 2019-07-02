@@ -1,0 +1,238 @@
+
+
+.btnme {
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 400;
+    white-space: nowrap;
+    vertical-align: middle;
+    /**zoom: 1;*/
+    /*-webkit-transition: background-color .1s linear;*/
+    /*-moz-transition: background-color .1s linear;*/
+    /*-o-transition: background-color .1s linear;*/
+    /*transition: background-color .1s linear;*/
+    height: 24px;
+    margin-left: 15px;
+    font-size: 14px;
+    white-space: nowrap;
+    text-align: center;
+    /*border-radius: 5px;*/
+    /*border:1px solid #c8cdd3;*/
+    cursor: pointer;
+    color:#1d5394;
+    /*background-color:#d7e4f1;*/
+    border:none;
+    margin: 4px;
+    padding: 0px 5px;
+    line-height: 26px;
+    margin-top: 2px;
+    outline: none;
+    background: transparent;
+}
+
+.btnme:hover{
+    background-color:#2e6cad;
+    color: white;
+}
+
+.buttona {
+    margin: 5px;
+    border-radius: 4px;
+    background-color: #9fbad5;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    border: none;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.buttona:hover{
+    background-color: #4476A7;
+    color:white;
+    font-weight:bold;
+}
+/*.layui-form-label {*/
+    /*padding: 9px 0px;*/
+    /*width: 100px;*/
+/*}*/
+
+.box{
+    border: 1px solid #9fbad5;
+    border-radius: 10px;
+    /*box-shadow:2px 3px 4px #999;*/
+    background-color:white !important;
+}
+
+
+.layui-elem-quote #date{
+    text-align: center;
+}
+
+.inputSector{
+    /*margin-left: 15px;*/
+    width: 230px;
+    border: 1px solid #c8cdd3;;
+    background-color: #d7e4f1;
+    display: inline-block;
+    height: 24px;
+    /*line-height: 1px;*/
+}
+/*.table thead tr th*/
+
+/*input文本框去掉X*/
+/*::-ms-clear,::-ms-reveal{*/
+    /*display: none !important;*/
+/*}*/
+
+#search_text ::-ms-clear,#search_text ::-ms-reveal{
+    display: none;
+}
+
+
+.layui-icon{
+    font-size:20px;
+    line-height: 25px;
+}
+
+.date{
+    border: none;
+    /*border-radius: 4px;*/
+    width: 170px;
+    height: 24px;
+    background-color:#d7e4f1;
+    border:1px solid #c8cdd3;
+}
+
+.select{
+    width: 100px;font-size: 14px;height: 24px;border:none;
+    background-color: #d7e4f1;
+    text-align:center;text-align-last:center;
+}
+
+
+.select2{
+    width: 100px;font-size: 14px;height: 24px;border:none;
+    background-color: #d7e4f1;
+}
+.select option{
+    background-color: white;
+    text-align: center;
+}
+
+
+
+
+
+.layui-nav-tree .layui-nav-item .fa{
+    color: #f3eb30;
+}
+
+body{
+    background-color: white;
+}
+
+.column .charts{
+    border: 1px solid #9fbad5;
+    border-radius: 10px;
+    /*box-shadow:2px 3px 4px #999;*/
+    background-color:white !important;
+}
+
+
+.table thead tr th{
+    background-color: #e2ecf6;
+}
+
+.input_search_key{
+    height: 20px;width: 200px;border: none;background-color:#d7e4f1;outline: none;
+}
+
+.input_search_key2{
+    height: 20px;width: 100px;border: none;background-color:#d7e4f1;outline: none;
+}
+
+#auto_div {
+    position: absolute;
+    z-index: 999999;
+    /*margin-left: 530px;*/
+    width: 100px;
+    border: 1px solid #999999;
+    display: none;
+    outline: none;
+}
+
+#auto_div2 {
+    position: absolute;
+    z-index: 999999;
+    /*margin-left: 530px;*/
+    width: 100px;
+    border: 1px solid #999999;
+    display: none;
+    outline: none;
+}
+
+
+.inputSector{
+    /*margin-left: 15px;*/
+    width: 230px;
+    border: 1px solid #c8cdd3;;
+    background-color: #d7e4f1;
+    display: inline-block;
+    height: 24px;
+    /*line-height: 1px;*/
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar
+{
+    /*width: 16px;*/
+    /*height: 16px;*/
+    background-color: #e2e2e2;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color:#d7e4f1 !important;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #9ac3e7 !important;
+}
+
+.container{
+    width:100%;
+}
+
+.btn1{
+    background-color: #86b4dc;
+    border:none;
+}
+.highlight{
+    background-color: #ffcc99;
+    display: block;
+    padding: 4px 0px;
+}
+.linkbutton{
+    cursor:pointer;
+    color:blue;
+    font-weight: bold
+}
+
+textarea{resize:none}
+input,button,select,textarea{outline:none}
+
+ .layui-input-block  .readonly{
+    background-color: #F3F3F3!important;
+    cursor: pointer!important;
+}

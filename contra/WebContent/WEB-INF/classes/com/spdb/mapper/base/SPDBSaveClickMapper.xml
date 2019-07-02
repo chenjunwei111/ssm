@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.base.SPDBSaveClickMapper">
+	<!--用户点击记录返回对象-->
+<resultMap id="ResultMapSPDBSaveClick"  type="com.spdb.pojo.base.SPDBSaveClickPojo" >
+<result property="city" column="CITY" javaType="String" jdbcType="VARCHAR"  /><result property="userName" column="USER_NAME" javaType="String" jdbcType="VARCHAR"  /><result property="clickDate" column="CLICK_DATE" javaType="java.sql.Timestamp"   /><result property="parnetName" column="PARNET_NAME" javaType="String" jdbcType="VARCHAR"  /><result property="childrenName" column="CHILDREN_NAME" javaType="String" jdbcType="VARCHAR"  /><result property="userIp" column="USER_IP" javaType="String" jdbcType="VARCHAR"  /></resultMap>
+
+	<!--用户点击记录插入语句-->
+	<insert id="insert" parameterType="com.spdb.pojo.base.SPDBSaveClickPojo"  > 
+INSERT INTO P_LTE_USERPERCE_XDRLOG (
+yyyyMM, CITY,USER_NAME,CLICK_DATE,PARENT_NAME,CHILDREN_NAME,USER_IP,MAC_IP,FUNCTION_PARAMETE, FUNCTION_URI,SPEC_DATE)
+ VALUES  (  #{yyyymm,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},
+ #{clickDate,jdbcType=TIMESTAMP},#{functionParent,jdbcType=VARCHAR},
+ #{functionName,jdbcType=VARCHAR} , #{userIp,jdbcType=VARCHAR},
+ #{macIp,jdbcType=VARCHAR},
+#{functionParamete,jdbcType=VARCHAR} ,#{functionUri,jdbcType=VARCHAR}
+,#{specDate,jdbcType=BIGINT})
+</insert>
+
+	<!--用户点击记录删除语句-->
+<delete id="delete" parameterType="com.spdb.pojo.base.SPDBSaveClickPojo">
+DELETE FROM SPDB_USERPERCE_SAVE_CLICK 
+<where>
+<if test="city != null and city!='' ">CITY = #{city}</if>
+<if test="userName != null and userName!='' "> AND USER_NAME = #{userName}</if>
+<if test="clickDate != null and clickDate!='' "> AND CLICK_DATE = #{clickDate}</if>
+<if test="parnetName != null and parnetName!='' "> AND PARNET_NAME = #{parnetName}</if>
+<if test="childrenName != null and childrenName!='' "> AND CHILDREN_NAME = #{childrenName}</if>
+<if test="userIp != null and userIp!='' "> AND USER_IP = #{userIp}</if>
+</where>
+
+</delete> 
+
+	<!--用户点击记录更新语句-->
+	<update id="update" parameterType="com.spdb.pojo.base.SPDBSaveClickPojo"> 
+UPDATE SPDB_USERPERCE_SAVE_CLICK 
+
+<set>
+<if test="city != null and city!='' ">CITY = #{city}</if>
+<if test="userName != null and userName!='' ">,USER_NAME = #{userName}</if>
+<if test="clickDate != null and clickDate!='' ">,CLICK_DATE = #{clickDate}</if>
+<if test="parnetName != null and parnetName!='' ">,PARNET_NAME = #{parnetName}</if>
+<if test="childrenName != null and childrenName!='' ">,CHILDREN_NAME = #{childrenName}</if>
+<if test="userIp != null and userIp!='' ">,USER_IP = #{userIp}</if>
+</set>
+<where>
+<if test="city != null and city!='' ">CITY = #{city}</if>
+<if test="userName != null and userName!='' "> AND USER_NAME = #{userName}</if>
+<if test="clickDate != null and clickDate!='' "> AND CLICK_DATE = #{clickDate}</if>
+<if test="parnetName != null and parnetName!='' "> AND PARNET_NAME = #{parnetName}</if>
+<if test="childrenName != null and childrenName!='' "> AND CHILDREN_NAME = #{childrenName}</if>
+<if test="userIp != null and userIp!='' "> AND USER_IP = #{userIp}</if>
+</where>
+	</update>
+
+	<!--用户点击记录查询数据集语句(传参在form中)-->
+<select id="query" parameterType="com.spdb.pojo.base.SPDBSaveClickPojo" resultMap="ResultMapSPDBSaveClick">
+<![CDATA[
+ SELECT  CITY,USER_NAME,CLICK_DATE,PARNET_NAME,CHILDREN_NAME,USER_IP FROM SPDB_USERPERCE_SAVE_CLICK
+ ]]>
+<where>
+<if test="city != null and city!='' ">CITY = #{city}</if>
+<if test="userName != null and userName!='' "> and USER_NAME = #{userName}</if>
+<if test="clickDate != null and clickDate!='' "> and CLICK_DATE = #{clickDate}</if>
+<if test="parnetName != null and parnetName!='' "> and PARNET_NAME = #{parnetName}</if>
+<if test="childrenName != null and childrenName!='' "> and CHILDREN_NAME = #{childrenName}</if>
+<if test="userIp != null and userIp!='' "> and USER_IP = #{userIp}</if>
+</where>
+</select>
+
+</mapper>

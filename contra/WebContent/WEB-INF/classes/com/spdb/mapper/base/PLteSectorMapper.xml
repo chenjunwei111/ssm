@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.base.PLteSectorMapper">
+	<!--小区工参信息返回对象 -->
+	<resultMap id="ResultMapPLteSector" type="com.spdb.pojo.base.PLteSectorPojo">
+		<result property="cityCode" column="CITY_CODE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="city" column="CITY" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="versionDate" column="VERSION_DATE" javaType="java.sql.Date"
+			jdbcType="DATE" />
+		<result property="sectorId" column="SECTOR_ID" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="sectorName" column="SECTOR_NAME" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="enodebid" column="ENODEBID" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="enodebName" column="ENODEB_NAME" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="ecellId" column="ECELL_ID" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="freqband" column="FREQBAND" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="frequency" column="FREQUENCY" javaType="Double"
+			jdbcType="DOUBLE" />
+		<result property="earfcn" column="EARFCN" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="pci" column="PCI" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="pss" column="PSS" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="sss" column="SSS" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="tac" column="TAC" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="vendor" column="VENDOR" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="azimuth" column="AZIMUTH" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="longitude" column="LONGITUDE" javaType="Double"
+			jdbcType="DOUBLE" />
+		<result property="latitude" column="LATITUDE" javaType="Double"
+			jdbcType="DOUBLE" />
+		<result property="style" column="STYLE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="grade" column="GRADE" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="rootsequenceidx" column="ROOTSEQUENCEIDX"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="height" column="HEIGHT" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="electtilt" column="ELECTTILT" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="mechtilt" column="MECHTILT" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="totletilt" column="TOTLETILT" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="status" column="STATUS" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="bandwidth" column="BANDWIDTH" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="prachindex" column="PRACHINDEX" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="tddspecsubfconf" column="TDDSPECSUBFCONF"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="tddframeconf" column="TDDFRAMECONF" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="cellid" column="CELLID" javaType="String"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--小区工参信息插入语句 -->
+	<insert id="insert" parameterType="com.spdb.pojo.base.PLteSectorPojo">
+		INSERT INTO P_LTE_SECTOR (
+		CITY_CODE,CITY,VERSION_DATE,SECTOR_ID,SECTOR_NAME,ENODEBID,ENODEB_NAME,ECELL_ID,FREQBAND,FREQUENCY,EARFCN,PCI,PSS,SSS
+		,TAC,VENDOR,AZIMUTH,LONGITUDE,LATITUDE,STYLE,GRADE,ROOTSEQUENCEIDX,HEIGHT,ELECTTILT,MECHTILT,TOTLETILT,STATUS,BANDWIDTH,PRACHINDEX
+		,TDDSPECSUBFCONF,TDDFRAMECONF,CELLID)
+		VALUES
+		(#{cityCode,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{versionDate,jdbcType=DATE},#{sectorId,jdbcType=VARCHAR}
+		,#{sectorName,jdbcType=VARCHAR},#{enodebid,jdbcType=VARCHAR},#{enodebName,jdbcType=VARCHAR},#{ecellId,jdbcType=VARCHAR},#{freqband,jdbcType=INTEGER}
+		,#{frequency,jdbcType=DOUBLE},#{earfcn,jdbcType=INTEGER},#{pci,jdbcType=INTEGER},#{pss,jdbcType=INTEGER},#{sss,jdbcType=INTEGER}
+		,#{tac,jdbcType=INTEGER},#{vendor,jdbcType=VARCHAR},#{azimuth,jdbcType=INTEGER},#{longitude,jdbcType=DOUBLE},#{latitude,jdbcType=DOUBLE}
+		,#{style,jdbcType=VARCHAR},#{grade,jdbcType=VARCHAR},#{rootsequenceidx,jdbcType=INTEGER},#{height,jdbcType=INTEGER},#{electtilt,jdbcType=INTEGER}
+		,#{mechtilt,jdbcType=INTEGER},#{totletilt,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{bandwidth,jdbcType=INTEGER},#{prachindex,jdbcType=INTEGER}
+		,#{tddspecsubfconf,jdbcType=INTEGER},#{tddframeconf,jdbcType=INTEGER},#{cellid,jdbcType=VARCHAR})
+	</insert>
+
+	<!--小区工参信息删除语句 -->
+	<delete id="delete" parameterType="com.spdb.pojo.base.PLteSectorPojo">
+		DELETE FROM P_LTE_SECTOR
+		<where>
+			<if test="cityCode != null and cityCode!='' ">CITY_CODE = #{cityCode}</if>
+			<if test="city != null and city!='' "> AND CITY = #{city}</if>
+			<if test="versionDate != null and versionDate!='' "> AND VERSION_DATE = #{versionDate}</if>
+			<if test="sectorId != null and sectorId!='' "> AND SECTOR_ID = #{sectorId}</if>
+			<if test="sectorName != null and sectorName!='' "> AND SECTOR_NAME = #{sectorName}</if>
+			<if test="enodebid != null and enodebid!='' "> AND ENODEBID = #{enodebid}</if>
+			<if test="enodebName != null and enodebName!='' "> AND ENODEB_NAME = #{enodebName}</if>
+			<if test="ecellId != null and ecellId!='' "> AND ECELL_ID = #{ecellId}</if>
+			<if test="freqband != null and freqband!='' "> AND FREQBAND = #{freqband}</if>
+			<if test="frequency != null and frequency!='' "> AND FREQUENCY = #{frequency}</if>
+			<if test="earfcn != null and earfcn!='' "> AND EARFCN = #{earfcn}</if>
+			<if test="pci != null and pci!='' "> AND PCI = #{pci}</if>
+			<if test="pss != null and pss!='' "> AND PSS = #{pss}</if>
+			<if test="sss != null and sss!='' "> AND SSS = #{sss}</if>
+			<if test="tac != null and tac!='' "> AND TAC = #{tac}</if>
+			<if test="vendor != null and vendor!='' "> AND VENDOR = #{vendor}</if>
+			<if test="azimuth != null and azimuth!='' "> AND AZIMUTH = #{azimuth}</if>
+			<if test="longitude != null and longitude!='' "> AND LONGITUDE = #{longitude}</if>
+			<if test="latitude != null and latitude!='' "> AND LATITUDE = #{latitude}</if>
+			<if test="style != null and style!='' "> AND STYLE = #{style}</if>
+			<if test="grade != null and grade!='' "> AND GRADE = #{grade}</if>
+			<if test="rootsequenceidx != null and rootsequenceidx!='' "> AND ROOTSEQUENCEIDX = #{rootsequenceidx}</if>
+			<if test="height != null and height!='' "> AND HEIGHT = #{height}</if>
+			<if test="electtilt != null and electtilt!='' "> AND ELECTTILT = #{electtilt}</if>
+			<if test="mechtilt != null and mechtilt!='' "> AND MECHTILT = #{mechtilt}</if>
+			<if test="totletilt != null and totletilt!='' "> AND TOTLETILT = #{totletilt}</if>
+			<if test="status != null and status!='' "> AND STATUS = #{status}</if>
+			<if test="bandwidth != null and bandwidth!='' "> AND BANDWIDTH = #{bandwidth}</if>
+			<if test="prachindex != null and prachindex!='' "> AND PRACHINDEX = #{prachindex}</if>
+			<if test="tddspecsubfconf != null and tddspecsubfconf!='' "> AND TDDSPECSUBFCONF = #{tddspecsubfconf}</if>
+			<if test="tddframeconf != null and tddframeconf!='' "> AND TDDFRAMECONF = #{tddframeconf}</if>
+			<if test="cellid != null and cellid!='' "> AND CELLID = #{cellid}</if>
+		</where>
+
+	</delete>
+
+	<!--小区工参信息更新语句 -->
+	<update id="update" parameterType="com.spdb.pojo.base.PLteSectorPojo">
+		UPDATE P_LTE_SECTOR
+
+		<set>
+			<if test="cityCode != null and cityCode!='' ">CITY_CODE = #{cityCode}</if>
+			<if test="city != null and city!='' ">,CITY = #{city}</if>
+			<if test="versionDate != null and versionDate!='' ">,VERSION_DATE = #{versionDate}</if>
+			<if test="sectorId != null and sectorId!='' ">,SECTOR_ID = #{sectorId}</if>
+			<if test="sectorName != null and sectorName!='' ">,SECTOR_NAME = #{sectorName}</if>
+			<if test="enodebid != null and enodebid!='' ">,ENODEBID = #{enodebid}</if>
+			<if test="enodebName != null and enodebName!='' ">,ENODEB_NAME = #{enodebName}</if>
+			<if test="ecellId != null and ecellId!='' ">,ECELL_ID = #{ecellId}</if>
+			<if test="freqband != null and freqband!='' ">,FREQBAND = #{freqband}</if>
+			<if test="frequency != null and frequency!='' ">,FREQUENCY = #{frequency}</if>
+			<if test="earfcn != null and earfcn!='' ">,EARFCN = #{earfcn}</if>
+			<if test="pci != null and pci!='' ">,PCI = #{pci}</if>
+			<if test="pss != null and pss!='' ">,PSS = #{pss}</if>
+			<if test="sss != null and sss!='' ">,SSS = #{sss}</if>
+			<if test="tac != null and tac!='' ">,TAC = #{tac}</if>
+			<if test="vendor != null and vendor!='' ">,VENDOR = #{vendor}</if>
+			<if test="azimuth != null and azimuth!='' ">,AZIMUTH = #{azimuth}</if>
+			<if test="longitude != null and longitude!='' ">,LONGITUDE = #{longitude}</if>
+			<if test="latitude != null and latitude!='' ">,LATITUDE = #{latitude}</if>
+			<if test="style != null and style!='' ">,STYLE = #{style}</if>
+			<if test="grade != null and grade!='' ">,GRADE = #{grade}</if>
+			<if test="rootsequenceidx != null and rootsequenceidx!='' ">,ROOTSEQUENCEIDX = #{rootsequenceidx}</if>
+			<if test="height != null and height!='' ">,HEIGHT = #{height}</if>
+			<if test="electtilt != null and electtilt!='' ">,ELECTTILT = #{electtilt}</if>
+			<if test="mechtilt != null and mechtilt!='' ">,MECHTILT = #{mechtilt}</if>
+			<if test="totletilt != null and totletilt!='' ">,TOTLETILT = #{totletilt}</if>
+			<if test="status != null and status!='' ">,STATUS = #{status}</if>
+			<if test="bandwidth != null and bandwidth!='' ">,BANDWIDTH = #{bandwidth}</if>
+			<if test="prachindex != null and prachindex!='' ">,PRACHINDEX = #{prachindex}</if>
+			<if test="tddspecsubfconf != null and tddspecsubfconf!='' ">,TDDSPECSUBFCONF = #{tddspecsubfconf}</if>
+			<if test="tddframeconf != null and tddframeconf!='' ">,TDDFRAMECONF = #{tddframeconf}</if>
+			<if test="cellid != null and cellid!='' ">,CELLID = #{cellid}</if>
+		</set>
+		<where>
+			<if test="cityCode != null and cityCode!='' ">CITY_CODE = #{cityCode}</if>
+			<if test="city != null and city!='' "> AND CITY = #{city}</if>
+			<if test="versionDate != null and versionDate!='' "> AND VERSION_DATE = #{versionDate}</if>
+			<if test="sectorId != null and sectorId!='' "> AND SECTOR_ID = #{sectorId}</if>
+			<if test="sectorName != null and sectorName!='' "> AND SECTOR_NAME = #{sectorName}</if>
+			<if test="enodebid != null and enodebid!='' "> AND ENODEBID = #{enodebid}</if>
+			<if test="enodebName != null and enodebName!='' "> AND ENODEB_NAME = #{enodebName}</if>
+			<if test="ecellId != null and ecellId!='' "> AND ECELL_ID = #{ecellId}</if>
+			<if test="freqband != null and freqband!='' "> AND FREQBAND = #{freqband}</if>
+			<if test="frequency != null and frequency!='' "> AND FREQUENCY = #{frequency}</if>
+			<if test="earfcn != null and earfcn!='' "> AND EARFCN = #{earfcn}</if>
+			<if test="pci != null and pci!='' "> AND PCI = #{pci}</if>
+			<if test="pss != null and pss!='' "> AND PSS = #{pss}</if>
+			<if test="sss != null and sss!='' "> AND SSS = #{sss}</if>
+			<if test="tac != null and tac!='' "> AND TAC = #{tac}</if>
+			<if test="vendor != null and vendor!='' "> AND VENDOR = #{vendor}</if>
+			<if test="azimuth != null and azimuth!='' "> AND AZIMUTH = #{azimuth}</if>
+			<if test="longitude != null and longitude!='' "> AND LONGITUDE = #{longitude}</if>
+			<if test="latitude != null and latitude!='' "> AND LATITUDE = #{latitude}</if>
+			<if test="style != null and style!='' "> AND STYLE = #{style}</if>
+			<if test="grade != null and grade!='' "> AND GRADE = #{grade}</if>
+			<if test="rootsequenceidx != null and rootsequenceidx!='' "> AND ROOTSEQUENCEIDX = #{rootsequenceidx}</if>
+			<if test="height != null and height!='' "> AND HEIGHT = #{height}</if>
+			<if test="electtilt != null and electtilt!='' "> AND ELECTTILT = #{electtilt}</if>
+			<if test="mechtilt != null and mechtilt!='' "> AND MECHTILT = #{mechtilt}</if>
+			<if test="totletilt != null and totletilt!='' "> AND TOTLETILT = #{totletilt}</if>
+			<if test="status != null and status!='' "> AND STATUS = #{status}</if>
+			<if test="bandwidth != null and bandwidth!='' "> AND BANDWIDTH = #{bandwidth}</if>
+			<if test="prachindex != null and prachindex!='' "> AND PRACHINDEX = #{prachindex}</if>
+			<if test="tddspecsubfconf != null and tddspecsubfconf!='' "> AND TDDSPECSUBFCONF = #{tddspecsubfconf}</if>
+			<if test="tddframeconf != null and tddframeconf!='' "> AND TDDFRAMECONF = #{tddframeconf}</if>
+			<if test="cellid != null and cellid!='' "> AND CELLID = #{cellid}</if>
+		</where>
+	</update>
+
+	<!--小区工参信息查询数据集语句(传参在form中) -->
+	<select id="query" parameterType="com.spdb.pojo.base.PLteSectorPojo"
+		resultMap="ResultMapPLteSector">
+<![CDATA[
+ SELECT  CITY_CODE,CITY,VERSION_DATE,SECTOR_ID,SECTOR_NAME,ENODEBID,ENODEB_NAME,ECELL_ID,FREQBAND,FREQUENCY
+,EARFCN,PCI,PSS,SSS,TAC,VENDOR,AZIMUTH,LONGITUDE,LATITUDE,STYLE
+,GRADE,ROOTSEQUENCEIDX,HEIGHT,ELECTTILT,MECHTILT,TOTLETILT,STATUS,BANDWIDTH,PRACHINDEX,TDDSPECSUBFCONF
+,TDDFRAMECONF,CELLID FROM P_LTE_SECTOR
+ ]]>
+		<where>
+			<if test="cityCode != null and cityCode!='' ">CITY_CODE = #{cityCode}</if>
+			<if test="city != null and city!='' "> and CITY = #{city}</if>
+			<if test="versionDate != null and versionDate!='' "> and VERSION_DATE = #{versionDate}</if>
+			<if test="sectorId != null and sectorId!='' "> and SECTOR_ID = #{sectorId}</if>
+			<if test="sectorName != null and sectorName!='' "> and SECTOR_NAME = #{sectorName}</if>
+			<if test="enodebid != null and enodebid!='' "> and ENODEBID = #{enodebid}</if>
+			<if test="enodebName != null and enodebName!='' "> and ENODEB_NAME = #{enodebName}</if>
+			<if test="ecellId != null and ecellId!='' "> and ECELL_ID = #{ecellId}</if>
+			<if test="freqband != null and freqband!='' "> and FREQBAND = #{freqband}</if>
+			<if test="frequency != null and frequency!='' "> and FREQUENCY = #{frequency}</if>
+			<if test="earfcn != null and earfcn!='' "> and EARFCN = #{earfcn}</if>
+			<if test="pci != null and pci!='' "> and PCI = #{pci}</if>
+			<if test="pss != null and pss!='' "> and PSS = #{pss}</if>
+			<if test="sss != null and sss!='' "> and SSS = #{sss}</if>
+			<if test="tac != null and tac!='' "> and TAC = #{tac}</if>
+			<if test="vendor != null and vendor!='' "> and VENDOR = #{vendor}</if>
+			<if test="azimuth != null and azimuth!='' "> and AZIMUTH = #{azimuth}</if>
+			<if test="longitude != null and longitude!='' "> and LONGITUDE = #{longitude}</if>
+			<if test="latitude != null and latitude!='' "> and LATITUDE = #{latitude}</if>
+			<if test="style != null and style!='' "> and STYLE = #{style}</if>
+			<if test="grade != null and grade!='' "> and GRADE = #{grade}</if>
+			<if test="rootsequenceidx != null and rootsequenceidx!='' "> and ROOTSEQUENCEIDX = #{rootsequenceidx}</if>
+			<if test="height != null and height!='' "> and HEIGHT = #{height}</if>
+			<if test="electtilt != null and electtilt!='' "> and ELECTTILT = #{electtilt}</if>
+			<if test="mechtilt != null and mechtilt!='' "> and MECHTILT = #{mechtilt}</if>
+			<if test="totletilt != null and totletilt!='' "> and TOTLETILT = #{totletilt}</if>
+			<if test="status != null and status!='' "> and STATUS = #{status}</if>
+			<if test="bandwidth != null and bandwidth!='' "> and BANDWIDTH = #{bandwidth}</if>
+			<if test="prachindex != null and prachindex!='' "> and PRACHINDEX = #{prachindex}</if>
+			<if test="tddspecsubfconf != null and tddspecsubfconf!='' "> and TDDSPECSUBFCONF = #{tddspecsubfconf}</if>
+			<if test="tddframeconf != null and tddframeconf!='' "> and TDDFRAMECONF = #{tddframeconf}</if>
+			<if test="cellid != null and cellid!='' "> and CELLID = #{cellid}</if>
+		</where>
+	</select>
+
+</mapper>

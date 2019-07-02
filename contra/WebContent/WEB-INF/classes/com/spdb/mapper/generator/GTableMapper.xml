@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.generator.GTableMapper">
+	<select id="getTableXq" parameterType="com.spdb.pojo.generator.TableForm"
+		resultMap="tableXq">
+	<![CDATA[
+		select column_name,data_type,data_length,data_precision,data_scale from all_tab_columns ]]>
+		<where>
+			<if test="table_name != null">
+				table_name = upper(#{table_name})
+			</if>
+			<if test="owner != null">
+				AND owner = upper(#{owner})
+			</if>
+		</where>
+	</select>
+
+	<resultMap type="com.spdb.pojo.generator.TablePojo" id="tableXq">
+		<result property="column_name" column="column_name" />
+		<result property="data_type" column="data_type" />
+		<result property="data_length" column="data_length" />
+		<result property="data_precision" column="data_precision" />
+		<result property="data_scale" column="data_scale" />
+	</resultMap>
+
+</mapper>

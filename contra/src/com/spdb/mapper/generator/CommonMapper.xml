@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spdb.mapper.generator.CommonMapper">
+
+	<!-- 查询分区表中是否有数据 -->
+	<select id="existSPData" statementType="STATEMENT" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ${tableName}
+		<where>
+			1 = 1
+			<if test="table_name != null">
+				AND CITY_CODE = #{cityCode}
+			</if>
+			<if test="owner != null">
+				AND VERSION_DATE = to_date('#{versionDate}','YYYY-MM-DD')
+			</if>
+		<![CDATA[AND ROWNUM <= 1 ]]>
+		</where>
+	</select>
+
+	<!-- 查询分区表中有哪些分区数据 -->
+	<select id="selectSP" parameterType="com.spdb.pojo.generator.PartitionPojo"
+		resultType="java.util.LinkedHashMap">
+		SELECT
+		TABLE_NAME,PARTITION_NAME,SUBPARTITION_NAME,AREA_CODE,VERSION_DATE,DEPT_NAME,DEPT_CODE
+		,ROW_NUMBER() OVER(PARTITION BY AREA_CODE ORDER BY VERSION_DATE DESC)
+		NUMS FROM (
+		SELECT
+		A.TABLE_NAME,A.PARTITION_NAME
+		,A.SUBPARTITION_NAME,A.AREA_CODE
+		,A.VERSION_DATE,B.DEPT_NAME,B.DEPT_CODE FROM (
+		SELECT
+		TABLE_NAME,PARTITION_NAME,SUBPARTITION_NAME
+		,SUBSTR(PARTITION_NAME,2,LENGTH(PARTITION_NAME)) AREA_CODE
+		,SUBSTR(SUBPARTITION_NAME,9,LENGTH(SUBPARTITION_NAME)) VERSION_DATE
+		FROM USER_TAB_SUBPARTITIONS WHERE TABLE_NAME=UPPER('${tableName}')
+		) A
+		INNER JOIN (
+		SELECT DEPT_NAME,DEPT_CODE,AREA_CODE FROM DEPARTMENT WHERE
+		AREA_CODE=#{areaCode}
+		) B ON
+		A.AREA_CODE = to_char(B.AREA_CODE)) T
+	</select>
+
+	<select id="dynamicSql" parameterType="String" resultType="java.util.LinkedHashMap">
+	<![CDATA[${value}]]>
+	</select>
+	
+	
+	<select id="dynamicSqltoInt" parameterType="String" resultType="Integer">
+		${value}
+	</select>
+
+    <select id="existSPData2" statementType="STATEMENT" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ${tableName} where CITY_CODE = '${cityCode}' AND VERSION_DATE = to_date('${versionDate}','YYYY-MM-DD')
+	</select>
+
+
+    <insert id="dynamicSqlinsert" parameterType="String" >
+		${value}
+	</insert>
+	
+	<update id="dynamicSqlUpdate" parameterType="String" >
+		${value}
+	</update>
+	
+	<delete id="dynamicSqlDelete" parameterType="String" >
+		${value}
+	</delete>
+
+
+	<!-- 调用存储过程 state表存储过程 (月分区)-->
+	<select id="execproState" statementType="CALLABLE" >
+       <![CDATA[
+             {call PRO_PARTITION_STRING (#{OBJ_YYYYMM,mode=IN,jdbcType=VARCHAR},#{OBJ_TABLE,mode=IN,jdbcType=VARCHAR},NULL)}
+       ]]>
+    </select>
+
+
+</mapper>

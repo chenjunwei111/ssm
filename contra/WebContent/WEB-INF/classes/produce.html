@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <script src="js/common/jquery-3.1.1.js "></script>
+
+    <style>
+        .div1{
+            width: 600px;
+            height: 400px;
+            border: 1px solid rebeccapurple;
+            margin:0 auto;
+            text-align: center;
+            border-radius: 20px
+        }
+        input{
+            border-radius: 5px;
+            width: 200px;
+            height:25px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column" style="text-align: center;">
+            <h3>快速建包生成工具</h3>
+            <div class="div1">
+                <br><br>
+                请输入数据库对应的表名称：<br>
+                <input type="text" class="tableName" placeholder="例子：P_LTE_SECTOR"><br><br>
+                请输入数据库的口令 : <br>
+                <input type="text" class="owner" disabled="disabled" value="COC"><br><br>
+                请输入你要制定的包名:<br>
+                <input type="text" class="layer" placeholder="例子：pag01"><br><br>
+                请输入你的表解释:<br>
+                <input type="text" class="title" placeholder="例子：小区工参信息"><br><br>
+
+                <button class="com" style="width: 100px;height: 50px;color: white;background-color: #1b7e5a">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    $(function () {
+        $(".com").click(function () {
+            var tableName=$(".tableName").val();
+            var owner=$(".owner").val();
+            var layer=$(".layer").val();
+            var title=$(".title").val();
+
+            $.ajax({
+                type: 'post',
+                url: "/contra/Table/generator",
+                data: {
+                    table_name: tableName,
+                    owner: owner,
+                    layer:layer,
+                    title:title
+                },
+                success: function(result) {
+                  if(result==1){
+                      alert("添加成功");
+                  }else {
+                      alert("添加失败");
+                  }
+                }
+            });
+        })
+    })
+</script>
+</html>

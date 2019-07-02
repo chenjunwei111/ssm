@@ -1,0 +1,87 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/mvc
+  http://www.springframework.org/schema/mvc/spring-mvc.xsd
+  http://www.springframework.org/schema/util
+  http://www.springframework.org/schema/util/spring-util.xsd"
+	default-autowire="byName">
+	<!-- 增加静态资源的获取的处理，使得js、css、 图片等资源可以通过浏览器访问 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 试图处理器，简化返回的modeAndView -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	   	<!-- <property name="prefix" value=""></property>  -->
+		<property name="suffix">
+			<!--后缀默认为JSP  -->
+			<value>.html</value>
+		</property>
+	</bean>
+
+	<!-- 启动注解 -->
+	<mvc:annotation-driven conversion-service="conversionService">
+		<!-- json转换器 -->
+		<mvc:message-converters>
+			<!-- 字符串,使用此转换器 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<!-- 默认是ISO8859-1编码，配置构造器参数,解决乱码问题 -->
+				<constructor-arg value="UTF-8" />
+			</bean>
+			<!-- 其他对象，使用此转换器 -->
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 增加注解启动依赖的两个 bean -->
+	<!-- 数据转换服务，负责页面数据到controller数据的转换 -->
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	</bean>
+	<!-- 处理注解方法的bean，负责 方法和url的解析 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	</bean>
+
+	<!-- 增加controller扫描的包名配置，spring 会扫面该包下面的所欲有的使用注解@Controller 的class，实例化纳入容器 -->
+	<context:component-scan base-package="com.spdb.web" />
+
+	<!-- 文件上传 start 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 默认编码 -->
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- 文件大小最大值 上传文件大小限制为10M，10*1024*1024 -->
+		<property name="maxUploadSize" value="10485760" />
+		<!-- 内存中的最大值 -->
+		<property name="maxInMemorySize" value="4096" />
+	</bean>
+	<!--文件上传 end -->
+
+	<!-- 拦截器 -->
+
+	<!-- 未认证或未授权时跳转必须在springmvc里面配，spring-shiro里的shirofilter配不生效 -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<!--表示捕获的异常 -->
+				<prop key="org.apache.shiro.authz.UnauthorizedException">
+					<!--捕获该异常时跳转的路径 -->
+					/403
+				</prop>
+				<!--表示捕获的异常 -->
+				<prop key="org.apache.shiro.authz.UnauthenticatedException">
+					<!--捕获该异常时跳转的路径 -->
+					/403
+				</prop>
+			</props>
+		</property>
+	</bean>
+	
+</beans>
